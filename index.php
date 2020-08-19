@@ -5,6 +5,7 @@ $email = "";
 $birth_year = 1969;
 $validation_error = "";
 $existing_users = ["admin", "guest"];
+$options = ["options" => ["min_range" => 1900, "max_range" => date("Y")]];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
@@ -34,6 +35,11 @@ $raw_email = $_POST["email"];
 
 //BIRD YEAR verification
  $raw_birth_year = $_POST["birth_year"];
+ if (filter_var($raw_birth_year, FILTER_VALIDATE_INT, $options)) {
+  $birth_year = $raw_birth_year;
+} else {
+  $validation_error .= "That can't be your birth year. <br>";
+}
 
 
 }
